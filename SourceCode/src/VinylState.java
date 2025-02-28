@@ -1,9 +1,12 @@
 
 public interface VinylState
 {
-  void borrow(Vinyl vinyl);
+  void onBorrowButtonPress(Vinyl vinyl);
+  void onReturnButtonPress(Vinyl vinyl);
 
-  void reserve(Vinyl vinyl);
+  void onReserveButtonPress(Vinyl vinyl);
+  void onUnreserveButtonPress(Vinyl vinyl);
 
-  void returnVinyl(Vinyl vinyl);
+  void onMarkForRemovalButtonPress(Vinyl vinyl);
+  void onUnmarkForRemovalButtonPress(Vinyl vinyl);
 }

@@ -14,29 +14,55 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   this.vinylId = vinylId;
   currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
                                         // yass girl it is <3
-
 }
+
+  public void pressBorrowButton(){
+    currentState.onBorrowButtonPress(this);
+  }
+  public void pressReturnButton(){
+    currentState.onReturnButtonPress(this);
+  }
+
+  public void pressReserveButton(){
+    currentState.onReserveButtonPress(this);
+  }
+  public void pressUnreserveButton(){
+    currentState.onUnreserveButtonPress(this);
+  }
+
+  public void pressMarkForRemovalButton(){
+    currentState.onMarkForRemovalButtonPress(this);
+  }
+  public void pressUnmarkForRemovalButton(){
+    currentState.onUnmarkForRemovalButtonPress(this);
+  }
+
+
+  public void changeToAvailableState(){
+    currentState = new AvailableState();
+  }
+  public void changeToAvailableAndReservedState(){
+    currentState = new AvailableAndReservedState(this);
+  }
+  public void changeToBorrowedState(){
+    currentState = new BorrowedState(this);
+  }
+  public void changeToBorrowedAndReservedState(){
+    currentState = new BorrowedAndReservedState(this);
+  }
+
+
+//
+// Getters and Setters:
+//
 
   public VinylState getState() {
     return currentState;
   }
 
-  public void setState(VinylState state) {
-    this.currentState = state;
-  }
-
-  public void borrow() {
-    currentState.borrow(this);
-  }
-
-  public void reserve() {
-    currentState.reserve(this);
-  }
-
-  public void returnVinyl() {
-    currentState.returnVinyl(this);
-  }
 /* i don t know if i need this methods, but i write them because copilot suggest me to write them :))
+// They are good :) you can uncomment them if you feel like testing <3
+
   public String getName() {
     return name;
   }
