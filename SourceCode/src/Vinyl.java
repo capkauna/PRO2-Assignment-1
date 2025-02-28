@@ -12,7 +12,8 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   this.artist = artist;
   this.releaseYear = releaseYear;
   this.vinylId = vinylId;
- // this.currentState = new Available(); -this line is generate by copilot, but i don t know if it is correct
+  currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
+                                        // yass girl it is <3
 
 }
 
