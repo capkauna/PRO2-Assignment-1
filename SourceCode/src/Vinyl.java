@@ -77,7 +77,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
 
   public String toString() {
-    return "Vinyl = " + name + '\'' + + artist + '\'' + + releaseYear + + vinylId + currentState.getClass().getSimpleName() ;
+    return "Vinyl = " + name + '\'' + artist + '\'' + + releaseYear + + vinylId + currentState.getClass().getSimpleName() ;
   }
 }
 
