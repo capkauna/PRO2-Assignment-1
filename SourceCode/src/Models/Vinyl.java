@@ -58,7 +58,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
   public void changeToBorrowedState(){
     VinylState oldState = currentState;
-    currentState = new BorrowedState(this);
+    currentState = new BorrowedState();
     pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToBorrowedAndReservedState(){
@@ -126,6 +126,26 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
 
   public String toString() {
     return "Models.Vinyl = " + getName() + '\'' + getArtist() + '\'' + getReleaseYear() +  getVinylId() + currentState.getClass().getSimpleName() ;
+  }
+
+  public void returnVinyl()
+  {
+    currentState = new AvailableState();
+  }
+
+  public void reserve()
+  {
+    if (currentState instanceof  AvailableState){
+      currentState = new AvailableAndReservedState();
+    }else if (currentState instanceof BorrowedState){
+      currentState = new BorrowedAndReservedState();
+    }
+  }
+
+  public void borrow()
+  {if (currentState instanceof AvailableState){
+    currentState = new  BorrowedState();
+  }
   }
 }
 

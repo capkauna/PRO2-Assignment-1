@@ -4,7 +4,7 @@ import Models.Vinyl;
 
 public class BorrowedState implements VinylState
 {
-  public BorrowedState(Vinyl vinyl)
+  public BorrowedState()
   {
     System.out.println(" ");
     System.out.println(" Models.Vinyl is Borrowed ");

@@ -14,4 +14,12 @@ public class VinylLibrary
   {
     vinyls.add(new Vinyl(title, artist, releaseYear, vinylId));
   }
+
+  public void addVinyl(Vinyl vinyl)
+  {
+  }
+
+  public void removeVinyl(Vinyl vinyl)
+  {
+  }
 }

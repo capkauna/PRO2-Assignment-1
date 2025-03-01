@@ -10,12 +10,17 @@ public class UserList
   {
     users = new ArrayList<>();
   }
-  public void addUser(String name)
+  public void addUser(User name)
   {
     users.add(new User(name));
   }
   public ArrayList<User> getUsers()
   {
     return users;
+  }
+
+  public void removeUser(User user)
+  {
+
   }
 }
