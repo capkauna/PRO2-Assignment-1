@@ -1,28 +1,31 @@
-public class AvailableState implements VinylState
+package States;
+
+import Models.Vinyl;
+
+public class BorrowedAndReservedState implements VinylState
 {
-  public AvailableState()
+  public BorrowedAndReservedState(Vinyl vinyl)
   {
     System.out.println(" ");
-    System.out.println(" Vinyl is Available ");
+    System.out.println(" Models.Vinyl is Borrowed by _" + " and reserved by _");
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){
-    // { ... check conditions + change flags ... }
-    // (if it's not flagged for removal etc ...)
-    System.out.println(" Borrowing available vinyl ... "); //testing purposes
-    vinyl.changeToBorrowedState();
+
   }
   @Override public void onReturnButtonPress(Vinyl vinyl){
-    // do nothing
+    // { ... }
+    System.out.println(" Returning vinyl ..."); // testing purposes
+    vinyl.changeToAvailableAndReservedState();
   }
 
   @Override public void onReserveButtonPress(Vinyl vinyl){
-    // { ... if it's not marked for removal ... }
-    System.out.println(" Reserving available vinyl ... "); // testing purposes
-    vinyl.changeToAvailableAndReservedState();
+
   }
   @Override public void onUnreserveButtonPress(Vinyl vinyl){
-    // { ... change flag ... }
+    // { ... }
+    System.out.println(" Models.Vinyl has been Unreserved ... "); //test purposes
+    vinyl.changeToBorrowedState();
   }
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){
@@ -33,5 +36,4 @@ public class AvailableState implements VinylState
     // change flag
     System.out.println(" Removing removal flag "); // testing
   }
-
 }

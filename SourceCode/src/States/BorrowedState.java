@@ -1,9 +1,13 @@
+package States;
+
+import Models.Vinyl;
+
 public class BorrowedState implements VinylState
 {
   public BorrowedState(Vinyl vinyl)
   {
     System.out.println(" ");
-    System.out.println(" Vinyl is Borrowed ");
+    System.out.println(" Models.Vinyl is Borrowed ");
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){

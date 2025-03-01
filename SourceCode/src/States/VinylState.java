@@ -1,3 +1,6 @@
+package States;
+
+import Models.Vinyl;
 
 public interface VinylState
 {

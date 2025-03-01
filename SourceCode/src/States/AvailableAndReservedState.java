@@ -1,9 +1,13 @@
+package States;
+
+import Models.Vinyl;
+
 public class AvailableAndReservedState implements VinylState
 {
   public AvailableAndReservedState(Vinyl vinyl)
   {
     System.out.println(" ");
-    System.out.println(" Vinyl is Available" + " and reserved by _");
+    System.out.println(" Models.Vinyl is Available" + " and reserved by _");
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){

@@ -1,3 +1,7 @@
+package Models;
+
+import States.*;
+
 public class Vinyl
 {
   private VinylState currentState;
@@ -60,8 +64,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
     return currentState;
   }
 
-/* i don t know if i need this methods, but i write them because copilot suggest me to write them :))
-// They are good :) you can uncomment them if you feel like testing <3
+
 
   public String getName() {
     return name;
@@ -94,7 +97,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   public void setVinylId(int vinylId) {
     this.vinylId = vinylId;
   }
-  */
+
 
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -104,7 +107,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
 
   public String toString() {
-    return "Vinyl = " + name + '\'' + artist + '\'' + + releaseYear + + vinylId + currentState.getClass().getSimpleName() ;
+    return "Models.Vinyl = " + getName() + '\'' + getArtist() + '\'' + getReleaseYear() +  getVinylId() + currentState.getClass().getSimpleName() ;
   }
 }
 
