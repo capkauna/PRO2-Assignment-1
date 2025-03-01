@@ -1,6 +1,8 @@
 package Models;
 
 import States.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class Vinyl
 {
@@ -9,13 +11,15 @@ public class Vinyl
   private String artist;
   private int releaseYear;
   private int vinylId;
+  private static int nextVinylId = 1;
+  private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 
 public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   this.name = name;
   this.artist = artist;
   this.releaseYear = releaseYear;
-  this.vinylId = vinylId;
+  this.vinylId = nextVinylId++; //added this so each new vinyl gets their own id number in order of creation
   currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
                                         // yass girl it is <3
 }
@@ -43,16 +47,24 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
 
 
   public void changeToAvailableState(){
+    VinylState oldState = currentState;
     currentState = new AvailableState();
+    pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToAvailableAndReservedState(){
+    VinylState oldState = currentState;
     currentState = new AvailableAndReservedState(this);
+    pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToBorrowedState(){
+    VinylState oldState = currentState;
     currentState = new BorrowedState(this);
+    pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToBorrowedAndReservedState(){
+    VinylState oldState = currentState;
     currentState = new BorrowedAndReservedState(this);
+    pcs.firePropertyChange("state", oldState, currentState);
   }
 
 
@@ -63,8 +75,6 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   public VinylState getState() {
     return currentState;
   }
-
-
 
   public String getName() {
     return name;
@@ -93,9 +103,17 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   public void setReleaseYear(int releaseYear) {
     this.releaseYear = releaseYear;
   }
+  //no setter for vinylId, so it can't be changed outside the constructor
 
-  public void setVinylId(int vinylId) {
-    this.vinylId = vinylId;
+  //
+  // Methods for adding and removing listeners:
+  //
+
+  public void addPropertyChangeListener(PropertyChangeListener listener) {
+    pcs.addPropertyChangeListener(listener);
+  }
+  public void removePropertyChangeListener(PropertyChangeListener listener) {
+    pcs.removePropertyChangeListener(listener);
   }
 
 

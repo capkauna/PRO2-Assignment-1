@@ -7,7 +7,7 @@ public class AvailableAndReservedState implements VinylState
   public AvailableAndReservedState(Vinyl vinyl)
   {
     System.out.println(" ");
-    System.out.println(" Models.Vinyl is Available" + " and reserved by _");
+    System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by _");
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){
@@ -27,7 +27,7 @@ public class AvailableAndReservedState implements VinylState
   }
   @Override public void onUnreserveButtonPress(Vinyl vinyl){
     // { ... code ... }
-    System.out.println(" Unreserving vinyl ... "); // testing purposes
+    System.out.println(" Removing reservation on vinyl ... "); // testing purposes
     vinyl.changeToAvailableState();
   }
 
