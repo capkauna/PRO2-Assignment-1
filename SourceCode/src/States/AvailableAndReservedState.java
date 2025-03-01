@@ -1,9 +1,10 @@
 package States;
 
-import Models.Vinyl;
+import Models.*;
 
 public class AvailableAndReservedState implements VinylState
 {
+  private User user;
   public AvailableAndReservedState(Vinyl vinyl)
   {
     System.out.println(" ");
@@ -22,13 +23,23 @@ public class AvailableAndReservedState implements VinylState
 
   }
 
-  @Override public void onReserveButtonPress(Vinyl vinyl){
-
+  @Override public void onReserveButtonPress(Vinyl vinyl)
+  {
+    if (user.getUserId() == vinyl.getReservingUserId())
+    {
+      System.out.println(user.getName() + " already reserved this vinyl.");
+      return;
+    }
+    System.out.println(" Vinyl is already reserved.");
   }
-  @Override public void onUnreserveButtonPress(Vinyl vinyl){
-    // { ... code ... }
-    System.out.println(" Removing reservation on vinyl ... "); // testing purposes
-    vinyl.changeToAvailableState();
+  @Override public void onUnreserveButtonPress(Vinyl vinyl)
+  {
+    System.out.println(" Removing reservation on vinyl ... " + vinyl.getName() + " for " + user.getName()); // testing purposes
+    vinyl.unreserve(user);
+    if (!vinyl.isReserved())
+    {
+      vinyl.changeToAvailableState();
+    }
   }
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){

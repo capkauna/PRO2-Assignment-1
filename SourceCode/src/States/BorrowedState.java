@@ -1,9 +1,11 @@
 package States;
 
-import Models.Vinyl;
+import Models.*;
 
 public class BorrowedState implements VinylState
 {
+  private User user;
+
   public BorrowedState(Vinyl vinyl)
   {
     System.out.println(" ");
@@ -20,12 +22,18 @@ public class BorrowedState implements VinylState
   }
 
   @Override public void onReserveButtonPress(Vinyl vinyl){
-    // { ... more code ... maybe ... }
-    System.out.println(" Reserving vinyl ... "); // testing purposes
-    vinyl.changeToBorrowedAndReservedState();
+    System.out.println(" Reserving vinyl ... ");
+    vinyl.reserve(user);
+    if (!vinyl.isMarkedForRemoval())
+    {
+      vinyl.changeToBorrowedAndReservedState();
+      System.out.println("Vinyl reserved by " + user.getName() + ".");
+    }
   }
-  @Override public void onUnreserveButtonPress(Vinyl vinyl){
-
+  @Override public void onUnreserveButtonPress(Vinyl vinyl)
+  {
+    vinyl.unreserve(user);
+    vinyl.changeToBorrowedState();
   }
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){

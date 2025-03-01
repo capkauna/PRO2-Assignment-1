@@ -1,16 +1,19 @@
 package States;
 
-import Models.Vinyl;
+import Models.*;
 
 public class AvailableState implements VinylState
 {
+  private User user;
+
   public AvailableState()
   {
     System.out.println(" ");
-    System.out.println(" Models.Vinyl is Available ");
+    System.out.println(" Vinyl is Available ");
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){
+
     // { ... check conditions + change flags ... }
     // (if it's not flagged for removal etc ...)
     System.out.println(" Borrowing available vinyl ... "); //testing purposes
@@ -21,11 +24,13 @@ public class AvailableState implements VinylState
   }
 
   @Override public void onReserveButtonPress(Vinyl vinyl){
+    vinyl.reserve(user);
     // { ... if it's not marked for removal ... }
-    System.out.println(" Reserving available vinyl ... "); // testing purposes
+    System.out.println(" Reserving available vinyl ... " + " to " + user.getName() + user.getUserId()); // testing purposes
     vinyl.changeToAvailableAndReservedState();
   }
   @Override public void onUnreserveButtonPress(Vinyl vinyl){
+    vinyl.unreserve(user);
     // { ... change flag ... }
   }
 

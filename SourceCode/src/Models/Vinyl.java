@@ -13,6 +13,9 @@ public class Vinyl
   private int vinylId;
   private static int nextVinylId = 1;
   private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+  private boolean reservedFlag;
+  private boolean removeFlag;
+  private Integer reservingUserId; //Integer can be set to null too, unlike int
 
 
 public Vinyl(String name, String artist, int releaseYear, int vinylId) {
@@ -22,7 +25,15 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   this.vinylId = nextVinylId++; //added this so each new vinyl gets their own id number in order of creation
   currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
                                         // yass girl it is <3
+  reservedFlag = false;
+  removeFlag = false;
+
 }
+
+///
+//  Methods for changing the state of the vinyl
+//
+
 
   public void pressBorrowButton(){
     currentState.onBorrowButtonPress(this);
@@ -67,6 +78,28 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
     pcs.firePropertyChange("state", oldState, currentState);
   }
 
+    //
+   //Flag specific methods
+  //
+
+  public void reserve (User user)
+  {
+    if (user == null || getReservingUserId() != null || isMarkedForRemoval())
+    {
+      throw new IllegalArgumentException("Can not reserve at this time.");
+    }
+    reservingUserId = user.getUserId();
+    reservedFlag = true;
+  }
+  public void unreserve(User user)
+  {
+    if (user==null || user.getUserId() != getReservingUserId())
+    {
+      throw new IllegalArgumentException("Only the user who reserved can cancel this reservation.");
+    }
+    reservingUserId = null;
+    reservedFlag = false;
+  }
 
 //
 // Getters and Setters:
@@ -104,6 +137,16 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
     this.releaseYear = releaseYear;
   }
   //no setter for vinylId, so it can't be changed outside the constructor
+
+  public Integer getReservingUserId() {
+    return reservingUserId;
+  }
+  public boolean isReserved() {
+    return reservedFlag;
+  }
+  public boolean isMarkedForRemoval() {
+    return removeFlag;
+  }
 
   //
   // Methods for adding and removing listeners:

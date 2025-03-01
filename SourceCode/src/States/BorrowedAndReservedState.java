@@ -1,9 +1,11 @@
 package States;
 
-import Models.Vinyl;
+import Models.*;
 
 public class BorrowedAndReservedState implements VinylState
 {
+  private User user;
+
   public BorrowedAndReservedState(Vinyl vinyl)
   {
     System.out.println(" ");
@@ -19,13 +21,24 @@ public class BorrowedAndReservedState implements VinylState
     vinyl.changeToAvailableAndReservedState();
   }
 
-  @Override public void onReserveButtonPress(Vinyl vinyl){
+  @Override public void onReserveButtonPress(Vinyl vinyl)
+  {
+    if (user.getUserId() == vinyl.getReservingUserId())
+    {
+      System.out.println(user.getName() + " already reserved this vinyl.");
+      return;
+    }
+    System.out.println(" Vinyl is already reserved.");
 
   }
   @Override public void onUnreserveButtonPress(Vinyl vinyl){
     // { ... }
-    System.out.println(" Models.Vinyl has been Unreserved ... "); //test purposes
-    vinyl.changeToBorrowedState();
+    System.out.println(" Removing reservation... ");
+    vinyl.unreserve(user);
+    if (!vinyl.isReserved())
+    {
+      vinyl.changeToBorrowedState();
+    }
   }
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){
