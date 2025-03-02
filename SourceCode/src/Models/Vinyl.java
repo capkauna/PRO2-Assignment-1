@@ -1,6 +1,8 @@
 package Models;
 
 import States.*;
+
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -126,11 +128,15 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
 
   public void setName(String name) {
+String oldName = this.name;
     this.name = name;
+    pcs.firePropertyChange("name", oldName, name); // Notify listeners about the change
   }
 
   public void setArtist(String artist) {
+  String oldArtist = this.artist;
     this.artist = artist;
+    pcs.firePropertyChange("artist", oldArtist, artist);
   }
 
   public void setReleaseYear(int releaseYear) {
@@ -158,7 +164,10 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   public void removePropertyChangeListener(PropertyChangeListener listener) {
     pcs.removePropertyChangeListener(listener);
   }
-
+  // Notify listeners about the change
+  public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    pcs.firePropertyChange(propertyName, oldValue, newValue);
+  }
 
   public boolean equals(Object obj) {
     if (this == obj) return true;
