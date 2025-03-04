@@ -1,3 +1,5 @@
+package Backlog;
+
 public class User
 {
   private String name;
@@ -19,7 +21,7 @@ public class User
 
   @Override public String toString()
   {
-    return "User: name= " + name + ", userId= " + userId + ".";
+    return "Backlog.User: name= " + name + ", userId= " + userId + ".";
   }
 
   public boolean equals(Object obj){

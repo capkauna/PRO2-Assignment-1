@@ -36,13 +36,13 @@ public class User implements PropertyChangeListener
   public String toString()
 
     {
-      return "User " + getName() + " id " + getUserId();
+      return "Backlog.User " + getName() + " id " + getUserId();
      }
   public void propertyChange(PropertyChangeEvent e)
   {
     if ("state".equals(e.getPropertyName()))
     {
-      System.out.println("User " + getName() + " is notified that "
+      System.out.println("Backlog.User " + getName() + " is notified that "
           + e.getOldValue().getClass().getSimpleName() + " changed to "
           + e.getNewValue().getClass().getSimpleName());
 
