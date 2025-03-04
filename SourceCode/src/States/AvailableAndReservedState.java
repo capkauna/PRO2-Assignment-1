@@ -5,10 +5,11 @@ import Models.*;
 public class AvailableAndReservedState implements VinylState
 {
   private User user;
-  public AvailableAndReservedState(Vinyl vinyl)
+
+  public AvailableAndReservedState(Vinyl vinyl, User reservingUser)
   {
     System.out.println(" ");
-    System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by _");
+    System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by" + reservingUser.getName());
   }
 
   @Override public void onBorrowButtonPress(Vinyl vinyl){
