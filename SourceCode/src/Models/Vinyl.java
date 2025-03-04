@@ -66,12 +66,12 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
   public void changeToAvailableAndReservedState(){
     VinylState oldState = currentState;
-    currentState = new AvailableAndReservedState(this);
+    currentState = new AvailableAndReservedState(this, null);
     pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToBorrowedState(){
     VinylState oldState = currentState;
-    currentState = new BorrowedState();
+    currentState = new BorrowedState(this);
     pcs.firePropertyChange("state", oldState, currentState);
   }
   public void changeToBorrowedAndReservedState(){
@@ -188,15 +188,15 @@ String oldName = this.name;
   public void reserve()
   {
     if (currentState instanceof  AvailableState){
-      currentState = new AvailableAndReservedState();
+      currentState = new AvailableAndReservedState(this, null);
     }else if (currentState instanceof BorrowedState){
-      currentState = new BorrowedAndReservedState();
+      currentState = new BorrowedAndReservedState(this);
     }
   }
 
   public void borrow()
   {if (currentState instanceof AvailableState){
-    currentState = new  BorrowedState();
+    currentState = new  BorrowedState(this);
   }
   }
 }
