@@ -45,10 +45,11 @@ public class AvailableAndReservedState implements VinylState
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){
     // change flags
-    System.out.println("Changing flag to -> For REMOVAL "); // testing
+    System.out.println("Vinyl is reserved but marked for removal after reservation ends.");
+    vinyl.setMarkedForRemoval(true);
   }
   @Override public void onUnmarkForRemovalButtonPress(Vinyl vinyl){
-    // change flags
-    System.out.println(" Removing removal flag "); // testing
+    vinyl.setMarkedForRemoval(false);
+    System.out.println("Vinyl is no longer marked for removal.");
   }
 }

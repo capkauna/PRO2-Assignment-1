@@ -35,12 +35,21 @@ public class AvailableState implements VinylState
   }
 
   @Override public void onMarkForRemovalButtonPress(Vinyl vinyl){
-    // change flag
-    System.out.println("Changing flag to -> For REMOVAL "); // testing
+    if (!vinyl.isMarkedForRemoval()) {
+      vinyl.setMarkedForRemoval(true);
+      System.out.println("Changing flag to -> For REMOVAL");
+    } else {
+      System.out.println("Vinyl is already marked for removal.");
+    }
   }
   @Override public void onUnmarkForRemovalButtonPress(Vinyl vinyl){
     // change flag
-    System.out.println(" Removing removal flag "); // testing
+    if (vinyl.isMarkedForRemoval()) {
+      vinyl.setMarkedForRemoval(false);
+      System.out.println("Removing removal flag");
+    } else {
+      System.out.println("Vinyl is not marked for removal.");
+    }
   }
 
 }

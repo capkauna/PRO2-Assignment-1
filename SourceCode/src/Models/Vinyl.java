@@ -107,7 +107,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
 // Getters and Setters:
 //
 
-  public VinylState getState() {
+  public VinylState getCurrentState() {
     return currentState;
   }
 
@@ -133,6 +133,11 @@ String oldName = this.name;
     pcs.firePropertyChange("name", oldName, name); // Notify listeners about the change
   }
 
+  //we need this setter for testing purposes and implementation of the reserve method
+  public void setCurrentState(VinylState currentState) {
+    this.currentState = currentState;
+  }
+
   public void setArtist(String artist) {
   String oldArtist = this.artist;
     this.artist = artist;
@@ -152,6 +157,16 @@ String oldName = this.name;
   }
   public boolean isMarkedForRemoval() {
     return removeFlag;
+  }
+
+  public void setMarkedForRemoval(boolean removeFlag) {
+    this.removeFlag = removeFlag;
+  }
+
+  private void checkMarkedForRemoval() {
+    if (removeFlag && currentState instanceof AvailableState) {
+      System.out.println("Vinyl is available and marked for removal. Consider removing it!");
+    }
   }
 
   //
