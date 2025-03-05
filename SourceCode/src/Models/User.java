@@ -34,10 +34,10 @@ public class User implements PropertyChangeListener
 
   @Override
   public String toString()
-
     {
       return "Backlog.User " + getName() + " id " + getUserId();
      }
+
   public void propertyChange(PropertyChangeEvent e)
   {
     if ("state".equals(e.getPropertyName()))
