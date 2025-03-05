@@ -21,7 +21,7 @@ public class Vinyl
   private Integer reservingUserId; //Integer can be set to null too, unlike int
 
 
-public Vinyl(String name, String artist, int releaseYear, int vinylId) {
+public Vinyl(String name, String artist, int releaseYear) {
   this.name = name;
   this.artist = artist;
   this.releaseYear = releaseYear;
