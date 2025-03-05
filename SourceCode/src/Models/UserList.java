@@ -12,7 +12,7 @@ public class UserList
   }
   public void addUser(User name)
   {
-    users.add(new User(name));
+    users.add(name);
   }
   public ArrayList<User> getUsers()
   {
