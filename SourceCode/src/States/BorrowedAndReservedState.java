@@ -6,8 +6,9 @@ public class BorrowedAndReservedState implements VinylState
 {
   private User user;
 
-  public BorrowedAndReservedState(Vinyl vinyl)
+  public BorrowedAndReservedState(Vinyl vinyl, User user)
   {
+    this.user = user;
     System.out.println(" ");
     System.out.println(" Models.Vinyl is Borrowed by _" + " and reserved by _");
   }

@@ -9,7 +9,7 @@ import java.beans.PropertyChangeSupport;
 public class Vinyl
 {
   private VinylState currentState;
-  private String state; //optional, for UI purposes
+  private String state; //optional, descriptive text for UI purposes
   private String name;
   private String artist;
   private int releaseYear;
@@ -77,7 +77,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
   public void changeToBorrowedAndReservedState(){
     VinylState oldState = currentState;
-    currentState = new BorrowedAndReservedState(this);
+    currentState = new BorrowedAndReservedState(this, null);
     pcs.firePropertyChange("state", oldState, currentState);
   }
 
@@ -135,12 +135,6 @@ String oldName = this.name;
     pcs.firePropertyChange("name", oldName, name); // Notify listeners about the change
   }
 
-  /*we need this setter for testing purposes and implementation of the reserve method
-  public void setCurrentState(VinylState currentState) {
-    this.currentState = currentState; // not the best this method because then the UI would not be notified, and would not update automatically.
-//create a new method setState that would change the state and notify listeners
-  }*/
-
   public void setArtist(String artist) {
   String oldArtist = this.artist;
     this.artist = artist;
@@ -175,12 +169,12 @@ String oldName = this.name;
   public void setState(VinylState newState) {
     VinylState oldState = this.currentState;
     this.currentState = newState;
-    this.state = newState.toString();
+    this.state = newState.toString(); // actual state name for UI purposes
     //notify listeners
     firePropertyChange("state", oldState, newState);
   }
 
-  
+
 
   public void getVinylState() {
     System.out.println("Vinyl is in state: " + currentState);
@@ -225,7 +219,7 @@ String oldName = this.name;
       currentState = new AvailableAndReservedState(this, null);
     }else if (currentState instanceof BorrowedState){
       //setState(new BorrowedAndReservedState());??
-      currentState = new BorrowedAndReservedState(this);
+      currentState = new BorrowedAndReservedState(this, null);
     }
   }
 

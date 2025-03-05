@@ -28,12 +28,8 @@ class VinylShop {
   }
 
   public boolean borrowVinyl(User user, Vinyl vinyl) {
-    if (!(vinyl.getCurrentState() instanceof BorrowedAndReservedState)) {
-      if (vinyl.getCurrentState() instanceof BorrowedState) {
-        vinyl.setState(new BorrowedAndReservedState());
-      } else {
-        vinyl.setState(new AvailableAndReservedState());
-      }
+   if (vinyl.getCurrentState() instanceof AvailableState) {
+      vinyl.setState(new BorrowedState(vinyl));
       return true;
     }
     return false;
@@ -54,9 +50,9 @@ class VinylShop {
     }
 
     if (currentState instanceof BorrowedState) {
-      vinyl.setState(new BorrowedAndReservedState());
+      vinyl.setState(new BorrowedAndReservedState(vinyl, user));
     } else if (currentState instanceof AvailableState) {
-      vinyl.setState(new AvailableAndReservedState());
+      vinyl.setState(new AvailableAndReservedState(vinyl, user));
     } else {
       return false;
     }
