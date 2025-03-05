@@ -9,6 +9,7 @@ import java.beans.PropertyChangeSupport;
 public class Vinyl
 {
   private VinylState currentState;
+  private String state; //optional, for UI purposes
   private String name;
   private String artist;
   private int releaseYear;
@@ -127,16 +128,18 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
     return vinylId;
   }
 
+
   public void setName(String name) {
 String oldName = this.name;
     this.name = name;
     pcs.firePropertyChange("name", oldName, name); // Notify listeners about the change
   }
 
-  //we need this setter for testing purposes and implementation of the reserve method
+  /*we need this setter for testing purposes and implementation of the reserve method
   public void setCurrentState(VinylState currentState) {
-    this.currentState = currentState;
-  }
+    this.currentState = currentState; // not the best this method because then the UI would not be notified, and would not update automatically.
+//create a new method setState that would change the state and notify listeners
+  }*/
 
   public void setArtist(String artist) {
   String oldArtist = this.artist;
@@ -169,6 +172,20 @@ String oldName = this.name;
     }
   }
 
+  public void setState(VinylState newState) {
+    VinylState oldState = this.currentState;
+    this.currentState = newState;
+    this.state = newState.toString();
+    //notify listeners
+    firePropertyChange("state", oldState, newState);
+  }
+
+  
+
+  public void getVinylState() {
+    System.out.println("Vinyl is in state: " + currentState);
+  }
+
   //
   // Methods for adding and removing listeners:
   //
@@ -179,10 +196,11 @@ String oldName = this.name;
   public void removePropertyChangeListener(PropertyChangeListener listener) {
     pcs.removePropertyChangeListener(listener);
   }
+
   // Notify listeners about the change
   public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
     pcs.firePropertyChange(propertyName, oldValue, newValue);
-  }
+  } //allows us to implement the Observer Pattern and separate the application logic from the graphical interface.
 
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -203,16 +221,28 @@ String oldName = this.name;
   public void reserve()
   {
     if (currentState instanceof  AvailableState){
+      // setState(new AvailableAndReservedState()); ??
       currentState = new AvailableAndReservedState(this, null);
     }else if (currentState instanceof BorrowedState){
+      //setState(new BorrowedAndReservedState());??
       currentState = new BorrowedAndReservedState(this);
     }
   }
 
   public void borrow()
-  {if (currentState instanceof AvailableState){
-    currentState = new  BorrowedState(this);
-  }
+  {
+
+    if (currentState instanceof AvailableState){
+    currentState = new  BorrowedState(this);  // ??it would only change the internal state of a vinyl,
+      // but the interface would not be notified of this change.???
+
+      //?? because have implemented the firePropertyChange method, we can use it to notify listeners --
+      // VinylState oldState = currentState;
+      //        setState(new BorrowedState());  // change currentState to BorrowedState and notify listeners/ui
+      //        firePropertyChange("state", oldState, currentState);
+      //    }//notify listeners
+
+    }
   }
 }
 
