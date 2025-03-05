@@ -7,7 +7,7 @@ public class Main
 {
   public static void main(String[] args) throws InterruptedException
   {
-    Vinyl vinyl = new Vinyl("VinylName1", "VinylArtist1", 2021, 1);
+    Vinyl vinyl = new Vinyl("VinylName1", "VinylArtist1", 2021);
     ViewModel viewModel = new ViewModel(vinyl);
     VinylView view = new VinylView(viewModel);
 

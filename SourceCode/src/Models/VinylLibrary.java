@@ -10,9 +10,9 @@ public class VinylLibrary
   {
     vinyls = new ArrayList<>();
   }
-  public void addVinyl(String title, String artist, int releaseYear, int vinylId)
+  public void addVinyl(String title, String artist, int releaseYear)
   {
-    vinyls.add(new Vinyl(title, artist, releaseYear, vinylId));
+    vinyls.add(new Vinyl(title, artist, releaseYear));
   }
 
   public void addVinyl(Vinyl vinyl)
