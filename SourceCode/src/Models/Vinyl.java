@@ -18,6 +18,7 @@ public class Vinyl
   private boolean reservedFlag;
   private boolean removeFlag;
   private Integer reservingUserId; //Integer can be set to null too, unlike int
+  private Integer borrowedByUserId = null; //check borrowing user
 
 
 public Vinyl(String name, String artist, int releaseYear, int vinylId) {
@@ -194,11 +195,40 @@ String oldName = this.name;
     }
   }
 
+  //this is also updated code, it may prevent from inconsistence behavior in system
+  /*public void reserve(User user) {
+    if (user == null || reservingUserId != null || isMarkedForRemoval()) {
+        throw new IllegalArgumentException("Cannot reserve this vinyl.");
+    }
+    reservingUserId = user.getUserId();
+    reservedFlag = true;
+}
+ */
+
+
   public void borrow()
   {if (currentState instanceof AvailableState){
     currentState = new  BorrowedState(this);
   }
   }
+  /* belove is updated version of this code *somebody check if this is correct
+  public void borrow(User user) {
+    if (borrowedByUserId != null) {
+      throw new IllegalStateException("Vinyl is already borrowed by another user.");
+    }
+    borrowedByUserId = user.getUserId();
+    currentState = new BorrowedState(this);
+  }
+
+  public void returnVinyl(User user) {
+    if (borrowedByUserId == null || !borrowedByUserId.equals(user.getUserId())) {
+      throw new IllegalArgumentException("Only the borrowing user can return this vinyl.");
+    }
+    borrowedByUserId = null; // Reset borrower
+    currentState = new AvailableState();
+  }
+  */
+
 }
 
 
