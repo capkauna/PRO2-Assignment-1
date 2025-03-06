@@ -13,12 +13,14 @@ public class BorrowedAndReservedState implements VinylState
     System.out.println(" Models.Vinyl is Borrowed by _" + " and reserved by _");
   }
 
-  @Override public void onBorrowButtonPress(Vinyl vinyl){
-
+  @Override
+  public void onBorrowButtonPress(Vinyl vinyl) {
+    System.out.println("Cannot borrow vinyl: It is already borrowed.");
   }
-  @Override public void onReturnButtonPress(Vinyl vinyl){
-    // { ... }
-    System.out.println(" Returning vinyl ..."); // testing purposes
+
+  @Override
+  public void onReturnButtonPress(Vinyl vinyl) {
+    System.out.println("Returning vinyl ..."); // Testing purposes
     vinyl.changeToAvailableAndReservedState();
   }
 

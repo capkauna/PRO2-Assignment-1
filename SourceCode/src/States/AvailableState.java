@@ -12,15 +12,19 @@ public class AvailableState implements VinylState
     System.out.println(" Vinyl is Available ");
   }
 
-  @Override public void onBorrowButtonPress(Vinyl vinyl){
-
-    // { ... check conditions + change flags ... }
-    // (if it's not flagged for removal etc ...)
-    System.out.println(" Borrowing available vinyl ... "); //testing purposes
-    vinyl.changeToBorrowedState();
+  @Override
+  public void onBorrowButtonPress(Vinyl vinyl) {
+    if (!vinyl.isMarkedForRemoval()) {
+      System.out.println("Borrowing available vinyl ..."); // Testing purposes
+      vinyl.changeToBorrowedState();
+    } else {
+      System.out.println("Cannot borrow vinyl: It is marked for removal.");
+    }
   }
-  @Override public void onReturnButtonPress(Vinyl vinyl){
-    // do nothing
+
+  @Override
+  public void onReturnButtonPress(Vinyl vinyl) {
+    System.out.println("Cannot return vinyl: It is not currently borrowed.");
   }
 
   @Override public void onReserveButtonPress(Vinyl vinyl){

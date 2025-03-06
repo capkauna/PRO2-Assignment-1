@@ -8,20 +8,22 @@ public class AvailableAndReservedState implements VinylState
 
   public AvailableAndReservedState(Vinyl vinyl, User reservingUser)
   {
+    this.user = reservingUser;
     System.out.println(" ");
     System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by" + reservingUser.getName());
   }
 
-  @Override public void onBorrowButtonPress(Vinyl vinyl){
-    // { ... code ... }
-    // if its the person that reserved it
-    System.out.println(" Borrowing vinyl ..."); //testing purposes
-    vinyl.changeToBorrowedState();
-    // else
-    // do nothing / display Cant be borrowed
+  @Override   public void onBorrowButtonPress(Vinyl vinyl) {
+    if (user.getUserId() == vinyl.getReservingUserId()) {
+      System.out.println("Borrowing vinyl ..."); // Testing purposes
+      vinyl.changeToBorrowedState();
+    } else {
+      System.out.println("Cannot borrow vinyl: Reserved by another user.");
+    }
   }
-  @Override public void onReturnButtonPress(Vinyl vinyl){
-
+  @Override
+  public void onReturnButtonPress(Vinyl vinyl) {
+    System.out.println("Cannot return vinyl: It is not currently borrowed.");
   }
 
   @Override public void onReserveButtonPress(Vinyl vinyl)
