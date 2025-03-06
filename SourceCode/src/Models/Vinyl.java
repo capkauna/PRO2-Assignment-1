@@ -20,6 +20,7 @@ public class Vinyl
   private boolean removeFlag;
   private Integer reservingUserId; //Integer can be set to null too, unlike int
   private Integer borrowedByUserId = null; //check borrowing user
+  private User user;//added this to keep track of associated users (borrowed or reserved). default is null
 
 
 public Vinyl(String name, String artist, int releaseYear) {
@@ -31,6 +32,7 @@ public Vinyl(String name, String artist, int releaseYear) {
                                         // yass girl it is <3
   reservedFlag = false;
   removeFlag = false;
+  user = null;
 
 }
 
@@ -131,13 +133,13 @@ public Vinyl(String name, String artist, int releaseYear) {
 
 
   public void setName(String name) {
-String oldName = this.name;
+    String oldName = this.name;
     this.name = name;
     pcs.firePropertyChange("name", oldName, name); // Notify listeners about the change
   }
 
   public void setArtist(String artist) {
-  String oldArtist = this.artist;
+    String oldArtist = this.artist;
     this.artist = artist;
     pcs.firePropertyChange("artist", oldArtist, artist);
   }
@@ -238,8 +240,11 @@ String oldName = this.name;
   public void borrow()
   {
 
-    if (currentState instanceof AvailableState){
-    currentState = new  BorrowedState(this);  // ??it would only change the internal state of a vinyl,
+    if (currentState instanceof AvailableState && !reservedFlag && !removeFlag){
+    {
+      changeToBorrowedState();
+    }
+      //changeToBorrowedState();  // ??it would only change the internal state of a vinyl,
       // but the interface would not be notified of this change.???
 
       //?? because have implemented the firePropertyChange method, we can use it to notify listeners --
@@ -249,8 +254,13 @@ String oldName = this.name;
       //    }//notify listeners
 
     }
+    if (currentState instanceof AvailableAndReservedState && getReservingUserId()==user.getUserId())
+    {
+      changeToBorrowedState();
+    }
+    System.out.println("Vinyl cannot be borrowed.");
   }
-  /* belove is updated version of this code *somebody check if this is correct
+  /* below is updated version of this code *somebody check if this is correct
   public void borrow(User user) {
     if (borrowedByUserId != null) {
       throw new IllegalStateException("Vinyl is already borrowed by another user.");
