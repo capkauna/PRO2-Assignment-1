@@ -19,7 +19,7 @@ public class Vinyl
   private boolean reservedFlag;
   private boolean removeFlag;
   private Integer reservingUserId; //Integer can be set to null too, unlike int
-  private Integer borrowedByUserId = null; //check borrowing user
+  private Integer borrowedByUserId; //check borrowing user
   private User user;//added this to keep track of associated users (borrowed or reserved). default is null
 
 
@@ -199,6 +199,7 @@ public Vinyl(String name, String artist, int releaseYear) {
     pcs.firePropertyChange(propertyName, oldValue, newValue);
   } //allows us to implement the Observer Pattern and separate the application logic from the graphical interface.
 
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
@@ -206,8 +207,9 @@ public Vinyl(String name, String artist, int releaseYear) {
     return vinylId == vinyl.vinylId;
   }
 
+  @Override
   public String toString() {
-    return "Models.Vinyl = " + getName() + '\'' + getArtist() + '\'' + getReleaseYear() +  getVinylId() + currentState.getClass().getSimpleName() ;
+    return "Vinyl:  " + getName() + '\'' + getArtist() + '\'' + getReleaseYear() +  getVinylId() + currentState.getClass().getSimpleName() ;
   }
 
   public void returnVinyl()
