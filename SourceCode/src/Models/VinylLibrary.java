@@ -6,6 +6,7 @@ import java.util.ArrayList;
     {
       private ArrayList<Vinyl> vinyls;
 
+<<<<<<< HEAD
       public VinylLibrary()
       {
         vinyls = new ArrayList<>();
@@ -14,6 +15,16 @@ import java.util.ArrayList;
       {
         vinyls.add(new Vinyl(title, artist, releaseYear, vinylId));
       }
+=======
+  public VinylLibrary()
+  {
+    vinyls = new ArrayList<>();
+  }
+  public void addVinyl(String title, String artist, int releaseYear)
+  {
+    vinyls.add(new Vinyl(title, artist, releaseYear));
+  }
+>>>>>>> 24ab121871b42a4d368c3f8661a408be96cbe3bc
 
       public void addVinyl(Vinyl vinyl)
       { if (vinyl == null) {

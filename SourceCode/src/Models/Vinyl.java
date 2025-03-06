@@ -9,6 +9,7 @@ import java.beans.PropertyChangeSupport;
 public class Vinyl
 {
   private VinylState currentState;
+  private String state; //optional, descriptive text for UI purposes
   private String name;
   private String artist;
   private int releaseYear;
@@ -21,7 +22,7 @@ public class Vinyl
   private Integer borrowedByUserId = null; //check borrowing user
 
 
-public Vinyl(String name, String artist, int releaseYear, int vinylId) {
+public Vinyl(String name, String artist, int releaseYear) {
   this.name = name;
   this.artist = artist;
   this.releaseYear = releaseYear;
@@ -77,7 +78,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   }
   public void changeToBorrowedAndReservedState(){
     VinylState oldState = currentState;
-    currentState = new BorrowedAndReservedState(this);
+    currentState = new BorrowedAndReservedState(this, null);
     pcs.firePropertyChange("state", oldState, currentState);
   }
 
@@ -108,7 +109,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
 // Getters and Setters:
 //
 
-  public VinylState getState() {
+  public VinylState getCurrentState() {
     return currentState;
   }
 
@@ -127,6 +128,7 @@ public Vinyl(String name, String artist, int releaseYear, int vinylId) {
   public int getVinylId() {
     return vinylId;
   }
+
 
   public void setName(String name) {
 String oldName = this.name;
@@ -155,6 +157,30 @@ String oldName = this.name;
     return removeFlag;
   }
 
+  public void setMarkedForRemoval(boolean removeFlag) {
+    this.removeFlag = removeFlag;
+  }
+
+  private void checkMarkedForRemoval() {
+    if (removeFlag && currentState instanceof AvailableState) {
+      System.out.println("Vinyl is available and marked for removal. Consider removing it!");
+    }
+  }
+
+  public void setState(VinylState newState) {
+    VinylState oldState = this.currentState;
+    this.currentState = newState;
+    this.state = newState.toString(); // actual state name for UI purposes
+    //notify listeners
+    firePropertyChange("state", oldState, newState);
+  }
+
+
+
+  public void getVinylState() {
+    System.out.println("Vinyl is in state: " + currentState);
+  }
+
   //
   // Methods for adding and removing listeners:
   //
@@ -165,10 +191,11 @@ String oldName = this.name;
   public void removePropertyChangeListener(PropertyChangeListener listener) {
     pcs.removePropertyChangeListener(listener);
   }
+
   // Notify listeners about the change
   public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
     pcs.firePropertyChange(propertyName, oldValue, newValue);
-  }
+  } //allows us to implement the Observer Pattern and separate the application logic from the graphical interface.
 
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -189,9 +216,11 @@ String oldName = this.name;
   public void reserve()
   {
     if (currentState instanceof  AvailableState){
+      // setState(new AvailableAndReservedState()); ??
       currentState = new AvailableAndReservedState(this, null);
     }else if (currentState instanceof BorrowedState){
-      currentState = new BorrowedAndReservedState(this);
+      //setState(new BorrowedAndReservedState());??
+      currentState = new BorrowedAndReservedState(this, null);
     }
   }
 
@@ -207,9 +236,19 @@ String oldName = this.name;
 
 
   public void borrow()
-  {if (currentState instanceof AvailableState){
-    currentState = new  BorrowedState(this);
-  }
+  {
+
+    if (currentState instanceof AvailableState){
+    currentState = new  BorrowedState(this);  // ??it would only change the internal state of a vinyl,
+      // but the interface would not be notified of this change.???
+
+      //?? because have implemented the firePropertyChange method, we can use it to notify listeners --
+      // VinylState oldState = currentState;
+      //        setState(new BorrowedState());  // change currentState to BorrowedState and notify listeners/ui
+      //        firePropertyChange("state", oldState, currentState);
+      //    }//notify listeners
+
+    }
   }
   /* belove is updated version of this code *somebody check if this is correct
   public void borrow(User user) {

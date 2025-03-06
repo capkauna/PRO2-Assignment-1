@@ -8,7 +8,11 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+<<<<<<< HEAD
             fx:controller="View.View"
+=======
+            fx:controller="View.VinylView"
+>>>>>>> 24ab121871b42a4d368c3f8661a408be96cbe3bc
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
