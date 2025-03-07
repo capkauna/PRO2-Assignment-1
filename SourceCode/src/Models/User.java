@@ -9,7 +9,7 @@ public class User implements PropertyChangeListener
   private int userId;
 
 
-  public User(String name)
+  public User(String name, int userId)
   {
     this.name = name;
     this.userId = nextUserId++;

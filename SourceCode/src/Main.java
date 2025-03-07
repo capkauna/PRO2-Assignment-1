@@ -1,14 +1,16 @@
 import Models.User;
 import Models.*;
 import View.VinylView;
-import ViewModel.ViewModel;
+import ViewModel.VinylViewModel;
+
+import static javafx.application.Application.launch;
 
 public class Main
 {
   public static void main(String[] args) throws InterruptedException
   {
     Vinyl vinyl = new Vinyl("VinylName1", "VinylArtist1", 2021);
-    ViewModel viewModel = new ViewModel(vinyl);
+    VinylViewModel viewModel = new VinylViewModel(vinyl);
     VinylView view = new VinylView(viewModel);
 
     view.showMenu();
@@ -36,12 +38,13 @@ public class Main
 
     vinyl.getCurrentState().toString();
 
-    User reservingUser = new Models.User("Petrica", 1);
+    User reservingUser = new Models.User("Petrica", vinyl.getReservingUserId());
     vinyl.addPropertyChangeListener(reservingUser);
     vinyl.pressReserveButton();
     Thread.sleep(2000);
     vinyl.changeToAvailableAndReservedState();
 
   }
+
 }
 

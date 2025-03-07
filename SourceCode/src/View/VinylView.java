@@ -1,30 +1,34 @@
 package View;
 
 import Models.User;
-import ViewModel.ViewModel;
+import Models.Vinyl;
+import ViewModel.VinylViewModel;
 
 import java.util.Scanner;
 
 public class VinylView
 {
-  private ViewModel viewModel;
+  private VinylViewModel viewModel;
 
-  public VinylView(ViewModel viewModel)
+  public VinylView(VinylViewModel viewModel)
   {
     this.viewModel = viewModel;
   }
 
-  public void showMenu(){
+  public void showMenu()
+  {
     Scanner scanner = new Scanner(System.in);
-    while (true) {
+    while (true)
+    {
       System.out.println("1. Borrow Vinyl");
       System.out.println("2. Reserve Vinyl");
       System.out.println("3. Exit");
       int status = scanner.nextInt();
 
-      switch (status) {
+     /* switch (status) {
         case 1:
-          viewModel.borrowVinyl();
+          Vinyl selected = null;
+          VinylviewModel.borrowVinyl(selected.getVinylId());
           break;
         case 2:
           System.out.println("Enter user ID:");
@@ -32,7 +36,7 @@ public class VinylView
           System.out.println("Enter user name:");
           String userName = scanner.next();
           User user = new User(userName, userId);
-          viewModel.reserveVinyl(user);
+          VinylViewModel.reserveVinyl(selected.getVinylId(), user);
           break;
         case 3:
           System.out.println("Exiting...");
@@ -40,6 +44,9 @@ public class VinylView
         default:
           System.out.println("Invalid option!");
       }
+    }
+  }*/
+
     }
   }
 }

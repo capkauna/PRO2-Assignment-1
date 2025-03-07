@@ -7,17 +7,17 @@ import States.AvailableState;
 import States.BorrowedState;
 import States.BorrowedAndReservedState;
 import States.AvailableAndReservedState;
-import States.VinylState;
+import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
 
-public class ViewModel implements PropertyChangeListener
+public class VinylViewModel implements PropertyChangeListener
 {
   private Vinyl vinyl;
 
-  public ViewModel(Vinyl vinyl)
+  public VinylViewModel(Vinyl vinyl)
   {
     this.vinyl = vinyl;
     vinyl.addPropertyChangeListener (this);
@@ -29,14 +29,14 @@ public class ViewModel implements PropertyChangeListener
     System.out.println("State changed: " + evt.getOldValue() + " -> " + evt.getNewValue());
   }
 
-  public void borrowVinyl()
+  public void borrowVinyl(int vinylId)
   {
     if (vinyl.getCurrentState() instanceof AvailableState) {
       vinyl.setState(new BorrowedState(vinyl));
     }
   }
 
-  public void reserveVinyl(User user) {
+  public void reserveVinyl(int vinylId, User user) {
     if (!(vinyl.getCurrentState() instanceof BorrowedAndReservedState)) {
       if (vinyl.getCurrentState() instanceof BorrowedState) {
         vinyl.setState(new BorrowedAndReservedState(vinyl, user));
@@ -46,6 +46,12 @@ public class ViewModel implements PropertyChangeListener
     }
   }
 
+  public void returnVinyl(int vinylId)
+  {
+  }
 
-
+  public ObservableList<Vinyl> getVinyls()
+  {
+    return null;
+  }
 }
