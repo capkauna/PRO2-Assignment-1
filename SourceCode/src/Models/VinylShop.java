@@ -2,7 +2,7 @@ package Models;
 
 import States.*;
 
-class VinylShop {
+public class VinylShop {
   private VinylLibrary vinylLibrary;
   private UserList userList;
 
