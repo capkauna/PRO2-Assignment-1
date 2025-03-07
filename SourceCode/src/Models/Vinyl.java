@@ -23,18 +23,19 @@ public class Vinyl
   private User user;//added this to keep track of associated users (borrowed or reserved). default is null
 
 
-public Vinyl(String name, String artist, int releaseYear) {
-  this.name = name;
-  this.artist = artist;
-  this.releaseYear = releaseYear;
-  this.vinylId = nextVinylId++; //added this so each new vinyl gets their own id number in order of creation
-  currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
-                                        // yass girl it is <3
-  reservedFlag = false;
-  removeFlag = false;
-  user = null;
+public Vinyl(String name, String artist, int releaseYear)
+  {
+    this.name = name;
+    this.artist = artist;
+    this.releaseYear = releaseYear;
+    this.vinylId = nextVinylId++; //added this so each new vinyl gets their own id number in order of creation
+    currentState = new AvailableState(); //-this line is generate by copilot, but i don t know if it is correct
+                                          // yass girl it is <3
+    reservedFlag = false;
+    removeFlag = false;
+    user = null;
 
-}
+  }
 
 ///
 //  Methods for changing the state of the vinyl
@@ -139,8 +140,6 @@ public Vinyl(String name, String artist, int releaseYear) {
   public int getVinylId() {
     return vinylId;
   }
-
-
 
   public void setName(String name) {
     String oldName = this.name;
@@ -280,6 +279,6 @@ public Vinyl(String name, String artist, int releaseYear) {
 }
 
 
-}
+
 
 

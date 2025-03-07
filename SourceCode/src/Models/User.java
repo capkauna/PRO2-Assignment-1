@@ -9,7 +9,7 @@ public class User implements PropertyChangeListener
   private int userId;
 
 
-  public User(String name, int userId)
+  public User(String name)
   {
     this.name = name;
     this.userId = nextUserId++;
@@ -48,5 +48,10 @@ public class User implements PropertyChangeListener
 
       //add more logic here
     }
+  }
+  public void reserveVinyl(Vinyl vinyl)
+  {
+    vinyl.addPropertyChangeListener(this);
+    vinyl.pressReserveButton();
   }
 }
