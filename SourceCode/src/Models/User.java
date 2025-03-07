@@ -1,8 +1,6 @@
 package Models;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class User implements PropertyChangeListener
+public class User
 {
   private String name;
   private static int nextUserId = 1;
@@ -38,20 +36,13 @@ public class User implements PropertyChangeListener
       return "User " + getName() + " id " + getUserId();
      }
 
-  public void propertyChange(PropertyChangeEvent e)
-  {
-    if ("state".equals(e.getPropertyName()))
-    {
-      System.out.println("User " + getName() + " is notified that "
-          + e.getOldValue().getClass().getSimpleName() + " changed to "
-          + e.getNewValue().getClass().getSimpleName());
-
-      //add more logic here
-    }
-  }
   public void reserveVinyl(Vinyl vinyl)
   {
-    vinyl.addPropertyChangeListener(this);
     vinyl.pressReserveButton();
   }
+  public void borrowVinyl(Vinyl vinyl)
+  {
+    vinyl.pressBorrowButton();
+  }
+
 }

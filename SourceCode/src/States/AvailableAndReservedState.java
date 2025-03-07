@@ -7,11 +7,10 @@ public class AvailableAndReservedState implements VinylState
   private User user;
 
   public AvailableAndReservedState(Vinyl vinyl, User reservingUser)
-  {
-    this.user = reservingUser;
-    System.out.println(" ");
-    System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by" + reservingUser.getName());
-  }
+    {
+      this.user = reservingUser;
+      System.out.println("Vinyl " + vinyl.getName() + "is Available" + " and reserved by" + reservingUser.getName());
+    }
 
   @Override   public void onBorrowButtonPress(Vinyl vinyl) {
     if (user.getUserId() == vinyl.getReservingUserId()) {
